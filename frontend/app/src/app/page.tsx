@@ -1,5 +1,7 @@
 import { getBookings } from "./api/getBookings";
+import { getSingleBooking } from "./api/getSingleBooking";
 import { Bookings } from "./components/Bookings";
+import { SingleBooking } from "./components/SingleBooking";
 
 // Task 1: (read)
 // Create a component that will list all of bookings as separate links - showing like:
@@ -22,14 +24,14 @@ import { Bookings } from "./components/Bookings";
 const Home: React.FC = async () => {
   const bookings = await getBookings();
 
-  console.log("Bookings", bookings);
   return (
-    <div>
+    <div className="flex flex-col gap-3 items-center justify-center h-screen w-full">
       <h1 className="flex items-center justify-center text-xl mt-2">
         Bookings
       </h1>
-      fdsfsd
-      <Bookings bookings={bookings} />
+      {bookings?.map((item) => (
+        <SingleBooking key={item.id} {...item} />
+      ))}
     </div>
   );
 };
