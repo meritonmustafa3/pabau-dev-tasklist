@@ -13,9 +13,9 @@ async function SingleBooking({ params }: { params: { id: number } }) {
         This Booking is with {singleBooking.doctor_name} For{" "}
         {singleBooking.service} and it ends on {singleBooking.end_time}
       </div>
-      <button className="bg-white rounded-md px-2 py-1.5 text-black">
-        <Link href="/">Go Back</Link>
-      </button>
+      <Link href="/" className="bg-white rounded-md px-2 py-1.5 text-black">
+        Go Back
+      </Link>
     </div>
   );
 }
