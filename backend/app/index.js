@@ -1,9 +1,11 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mysql = require("mysql2/promise"); // Using promise-based API
+const multer = require("multer");
 
 const app = express();
 const port = 5000;
+const upload = multer();
 
 const pool = mysql.createPool({
   host: "mysql",
@@ -46,7 +48,11 @@ app.get("/api/bookings/:id", async (req, res) => {
 });
 
 // API endpoint to insert a booking
-app.post("/api/bookings", async (req, res) => {
+app.post("/api/bookings", upload.none(), async (req, res) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader("Access-Control-Allow-Methods", "POST");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
   const { service, doctor_name, start_time, end_time, date } = req.body;
   const insertQuery =
     "INSERT INTO bookings (service, doctor_name, start_time, end_time, date) VALUES (?, ?, ?, ?, ?)";
